@@ -11,24 +11,22 @@ from random import randint
 class FamilyStructure:
     def __init__(self, last_name):
         self.last_name = last_name
-        #self.first_name = first_name
-        #self.age = age
-        #self.lucky_numbers = lucky_numbers
-        # example list of members
         self._members = [
             {
-            "id":1,
             "first_name":"John",
+            "id":1,
             "age":33,
             "lucky_numbers":[7,13,22]
             },
-            {"id":2,
+            {
             "first_name":"Jane",
+            "id":2,
             "age":35,
             "lucky_numbers":[10,14,3]
             },
-            {"id":3,
+            {
             "first_name":"Jimmy",
+            "id":3,
             "age":5,
             "lucky_numbers":[1]
             }
@@ -48,12 +46,16 @@ class FamilyStructure:
         miembro = list(filter(lambda x: x['id'] == id, self._members))
         x = self._members.index(miembro[0])
         del self._members[x]
-        return self._members
+        return 'done'
 
     def get_member(self, id):
         # fill this method and update the return
-        miembro = list(filter(lambda x: x['id'] == id, self._members))
-        return miembro
+        for x in self._members:
+            if x["id"] == int(id):
+                member = dict(x)
+                return member
+        #miembro = dict(filter(lambda x: x["id"] == id, self._members))
+        return 'none'
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):

@@ -34,33 +34,31 @@ def handle_members():
     return jsonify(response_body), 200
 
 
-@app.route('/members/<int:member_id>', methods=['GET'])
-def handle_member(member_id):
-    # this is how you can use the Family datastructure by calling its methods
-    members = jackson_family.get_member(member_id)
-    response_body = members
-    return jsonify(response_body), 200
+@app.route('/member/<int:id>', methods=['GET'])
+def handle_member(id):
+    member = jackson_family.get_member(id)
+    return jsonify(member)
 
-@app.route('/members/<int:member_id>', methods=['DELETE'])
-def handle_del_member(member_id):
-    members = jackson_family.delete_member(member_id)
-    response_body = members
-    return jsonify(response_body)
+@app.route('/member/<int:id>', methods=['DELETE'])
+def handle_del_member(id):
+    jackson_family.delete_member(id)
+    response = {"done":True}
+    return response
 
-@app.route('/members', methods=['POST'])
+@app.route('/member', methods=['POST'])
 def handle_add_member():
     data = request.get_json()
-    data["id"] = jackson_family._generateId()
+    #data["id"] = jackson_family._generateId()
     members = jackson_family.add_member(data)
     response_body = members
     return jsonify(response_body)
 
-@app.route('/members/<int:member_id>', methods=['PUT'])
-def edit_member(member_id):
+@app.route('/member/<int:id>', methods=['PUT'])
+def edit_member(id):
 
-    jackson_family.delete_member(member_id)
+    jackson_family.delete_member(id)
     data = request.get_json()
-    data["id"] = member_id
+    data["id"] = id
     members = jackson_family.add_member(data)
     response_body = members
 
